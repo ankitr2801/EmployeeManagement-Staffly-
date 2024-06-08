@@ -1,0 +1,104 @@
+﻿
+
+@using EmployeeManangement.Application.ViewModels.Department;
+@model IEnumerable<DepartmentToViewModel>;
+
+@{
+    ViewData["Title"] = "Department";
+}
+
+                                             
+
+<div class="content-body" style="min-height: 780px;">
+
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Department</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start ">
+                            <h4 class="card-title fs-3">Department Table</h4>
+                            <a type="button" asp-action="Create" class="btn btn-outline-primary">Add Department</a>
+                        </div>
+                        <div class="table-responsive">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                                    <div class="row">
+                                             <div class="col-sm-12">
+                                        <table class="table table-striped table-bordered zero-configuration dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Name</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(model => item.Id)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(model => item.Name)
+                                                        </td>
+
+                                                        <td>
+
+                                                            <a data-toggle="tooltip" data-placement="top" asp-action="Edit" asp-route-id="@item.Id" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a>
+                                                            <a data-toggle="tooltip" data-placement="top" asp-action="Delete" asp-route-id="@item.Id" title="Close"><i class="fa fa-close color-danger mr-2"></i></a>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #/ container -->
+</div>
+@section Scripts
+{
+    <script src="~/plugins/tables/js/jquery.datatables.min.js"></script>
+    <script src="~/plugins/tables/js/datatable/datatables.bootstrap4.min.js"></script>
+    <script src="~/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <!-- Toastr -->
+         <script src="~/plugins/toastr/js/toastr.min.js"></script>
+        <script type="text/javascript">
+            function NotifySuccess(message) 
+            {
+              toastr.success(message, "Top Right", { timeOut: 5e3, closeButton: !0, debug: !1, newestOnTop: !0, progressBar: !0, positionClass: "toast-top-right", preventDuplicates: !0, onclick: null, showDuration: "300", hideDuration: "1000", extendedTimeOut: "1000", showEasing: "swing", hideEasing: "linear", showMethod: "fadeIn", hideMethod: "fadeOut", tapToDismiss: !1 })
+            };
+
+            $(document).ready(function () 
+            {
+                var success = @((TempData["SuccessMessage"] != null).ToString().ToLower());
+                if (success == true) 
+                {
+                   NotifySuccess('@(TempData["SuccessMessage"]!.ToString())');
+                }
+            });
+        </script>
+    }
+}
+    

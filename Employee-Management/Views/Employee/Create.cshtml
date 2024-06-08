@@ -1,0 +1,104 @@
+﻿@using EmployeeManangement.Application.ViewModels.Employee;
+@model EmployeeToCreateViewModel;
+
+
+@{
+    
+    ViewData["Title"] = "Employee";
+};
+
+<div class="content-body">
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Add Employee</h4>
+            <div class="basic-form">
+                <form method="post" asp-controller="Employee" asp-action="Create" >
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label  fw-bold ">FirstName</label>
+                                        <input type="text" class="form-control " asp-for="FirstName" placeholder="Enter Your FirstName" />
+                                        <span asp-validation-for="FirstName" style="color:red"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label  fw-bold ">LastName</label>
+                                        <input type="text" class="form-control " asp-for="LastName" placeholder="Enter Your LastName" />
+                                        <span asp-validation-for="LastName" style="color:red"></span>
+                                    </div>
+                                </div>
+                  
+                    <div class="form-group">
+                        <label class="form-label  fw-bold ">Email</label>
+                        <input type="text" class="form-control " asp-for="Email" placeholder="Enter Your Email" />
+                        <span asp-validation-for="Email" style="color:red"></span>
+                    </div>
+                                <div class="form-group">
+                                    <label class="form-label  fw-bold ">Phone</label>
+                                    <input type="number" class="form-control " asp-for="Phone" placeholder="Enter Your Phone" />
+                                    <span asp-validation-for="Phone" style="color:red"></span>
+                                </div>
+
+                 
+                    <div class="form-group">
+                        <label class="form-lable fw-bold">Department</label>
+                        <select class="form-control" asp-for="DepartmentId" asp-items="@(ViewBag.Departments)"></select>
+                        <span asp-validation-for="DepartmentId" style="color:red"></span>
+                    </div>
+                  
+                    <div class="form-group mt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox">
+                            <label class="form-check-label">Check me out</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+
+        <!-- Toastr -->
+        <script src="~/plugins/toastr/js/toastr.min.js"></script>
+        <script type="text/javascript">
+           
+            function NotifyError(message) {
+                toastr.error(message, "Top Right", { timeOut: 5e3, closeButton: !0, debug: !1, newestOnTop: !0, progressBar: !0, positionClass: "toast-top-right", preventDuplicates: !0, onclick: null, showDuration: "300", hideDuration: "1000", extendedTimeOut: "1000", showEasing: "swing", hideEasing: "linear", showMethod: "fadeIn", hideMethod: "fadeOut", tapToDismiss: !1 })
+            };
+            $(document).ready(function () {
+              
+                var error = @((TempData["ErrorMessage"] != null).ToString().ToLower());
+                if (error == true) {
+                    NotifyError('@(TempData["ErrorMessage"]!.ToString())');
+                }
+
+            });
+        </script>
+    }
+}
+
+
+
+
+
+

@@ -1,0 +1,55 @@
+﻿@using EmployeeManangement.Application.ViewModels.Employee
+@model EmployeeProfileToViewModel;
+
+@{
+    ViewData["Title"] = "Employee Data";
+}
+
+
+<div class="content-body">
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Employee</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+            </ol>
+        </div>
+    </div>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6 mb-4">
+            <p class="text-danger">@TempData["Sizeerror"]</p>
+            <p class="text-danger">@TempData["ExtError"]</p>
+            <form method="post" enctype="multipart/form-data" asp-controller="Employee" asp-action="Detail" class="p-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                            <img style="height:auto; width:100px;" src="~/images/users/@Model.ImageUrl" class="rounded-circle" alt="User Image" />
+                            
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group mb-3">
+                            <label for="formFile" class="form-label">Upload Image</label>
+                            <input asp-for="Image" type="file" class="form-control" />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+
+                        <p class="card-text">
+                            <strong>Name: @Model.FirstName @Model.LastName</strong> <br />
+                            <strong>Employee ID:</strong> @Model.Id <br />
+                            <strong>Department ID:</strong> @Model.DepartmentId<br />
+                            <strong>Email:</strong> @Model.Email <br />
+                            <strong>Phone:</strong> @Model.Phone <br />
+                        </p>
+
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary" type="submit">Update</button>
+                          
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
